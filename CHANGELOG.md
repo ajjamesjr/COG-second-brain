@@ -2,6 +2,43 @@
 
 All notable changes to COG (Cognition + Obsidian + Git) will be documented in this file.
 
+## [3.15.0] - 2026-10-02
+
+### Added
+
+#### Controlled-language writing target and output format ladder
+Adapted from [Andrej Karpathy's post of 2026-10-02](https://x.com/karpathy/status/2105819303471976479) on how to read model output faster.
+
+- `no-ai-slop` gains a **Controlled-language target**: agent-authored text aims for about 80% of ASD-STE100, the controlled English from aerospace maintenance manuals. Instructions are 20 words max with one action each, descriptive sentences 25 words max, paragraphs 6 sentences max, active voice, one term per meaning, noun clusters three words max, articles kept. Technical terms, code, quotes, and the writer's own voice in edits stay outside the limits.
+- `no-ai-slop` gains **ELI5 first for explanations**: an explanation for someone who did not build the thing opens with three sentences of everyday words and one analogy, then the technical detail in STE.
+- `no-ai-slop` gains an **Output format ladder**: when the goal is understanding, the agent picks the richest rung the content and medium support (prose, diagram, HTML page, explainer video via `release-video`) and offers the next rung in one line instead of building it unasked.
+- `eval.md` gains four checks for sentence limits, term consistency, the ELI5 opener, and format choice.
+- `CLAUDE.md` and `.cursorrules` Response Style carry both rules, so agents that never load the skill still follow them.
+
+## [3.14.0] - 2026-09-28
+
+### Added
+
+#### release-video: a release becomes a recap reel and explained demos
+A product release goes in as its list of shipped items plus real recordings, and comes out as a 45-75 s motion recap (one scene per feature) and a 30-60 s explained demo per feature. The pipeline came out of one real release video built end to end with Opus 5.5 in a single session of 252 tool calls, then generalized: brand colors, fonts and product names were removed and now live in theme tokens.
+
+- `engine.js` makes every frame a pure function of time, so renders are identical, split across workers, and any frame can be pulled as a still for review before the full render. A 22 s test recap renders 660 frames in about 9 s on six workers.
+- Sound effects are declared on the element that moves (`data-sfx`) and land on its animation start. `mix_sfx.py` builds the effects track from those cues.
+- Music is generated from a sectioned plan matched to the scene timeline, and `music_check.py` scores candidates for tempo, beat phase and repetition so a looping track is easy to spot and drop.
+- `mix_final.sh` ducks music under every effect, normalizes toward -18 LUFS (one loudnorm pass lands within about 1 LU) with true peak under -1.5 dBTP, writes a web copy, and lists silences.
+- `compose_demo.py` turns a recording into a demo with a window frame, step captions, labeled speed-ups, and eased zoom plus a highlight ring on the payoff.
+- The skill carries seven rules from reviewing the first cut, including sound from motion, no reused ideas from a reference video, complete shapes only, and 6-8 s per feature scene.
+- For narrated footage it points to [browser-use/video-use](https://github.com/browser-use/video-use) and treats its own clips as B-roll there.
+
+#### slop-gate: compare models against the gate
+`scripts/model_compare.py` replays your Claude Code transcripts through `scan.py` and reports, per model, the share of chat replies and Markdown writes the gate would have refused, the hit rate per rule, workload per human prompt, and punctuation per 10k words. On the maintainer's transcripts from September 15 to 28, with the same rules for every model, the gate would have refused 30.5% of Opus 5 chat replies, 2.4% of Fable 5.1 replies and 3.2% of Opus 5.5 replies.
+
+### Changed
+
+#### no-ai-slop: model-era tells for Opus 5.5
+- New section with the measured refusal rates and the tells that replaced the em dash on Opus 5.5: parenthetical stuffing, semicolon chains, bullet-and-bold replies, colon lead-ins. `eval.md` gains a check for them.
+- Two structural patterns synced from the maintainer's copy: announcement preambles that restate a visible structure, and meta-narration about the document.
+
 ## [3.13.0] - 2026-09-14
 
 ### Added

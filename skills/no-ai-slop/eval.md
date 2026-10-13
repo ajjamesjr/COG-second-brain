@@ -32,6 +32,15 @@ For detect requests, make sure the response names each pattern found with a quot
 7. Are colons sentence case unless grammar, a proper noun, a title, or code requires otherwise?
 8. Are em dashes used sparingly: Usually none in short copy, and only 1-2 in longer drafts when they clearly help?
 
+9. For model output: is there at most one parenthetical per paragraph, no semicolon-chained clauses, and prose where bullets were carrying a line of reasoning?
+
+## Controlled language and format
+
+1. For agent-authored text: are instructions 20 words max with one instruction each, descriptive sentences 25 words max, paragraphs 6 sentences max, voice active, and each term used with one meaning?
+2. Are noun clusters three words max, with articles and connectors kept?
+3. For an explanation to a non-author: does it open with an ELI5 paragraph of three sentences max, with one everyday analogy and no jargon?
+4. Is the output on the right rung of the format ladder, or does the reply offer the next rung in one line when a diagram, page, or video would explain it better?
+
 ## Structural slop
 
 1. Are invented frameworks, gates, layers, pillars, and numbered taxonomies removed unless they exist in the source or genuinely reduce complexity?

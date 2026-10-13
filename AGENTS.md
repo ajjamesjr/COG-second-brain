@@ -643,6 +643,7 @@ The following 7 skills raise output quality on writing and visual work. They enc
 2. **Detect mode:** flags slop patterns without rewriting
 3. Kills fake-profound kickers, summary-recap endings, hedge stacking, and formatting theater
 4. Enforces concreteness, named sources, and active voice
+5. Sets the default for agent-authored text: 80% ASD-STE100 controlled language and a format ladder (prose, diagram, HTML page, explainer video), from [Karpathy, 2026-10-02](https://x.com/karpathy/status/2105819303471976479)
 
 **Attribution:** Vendored from [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop) (MIT). `LICENSE` and `SOURCE.md` ship alongside it.
 
@@ -667,6 +668,28 @@ The following 7 skills raise output quality on writing and visual work. They enc
 5. `--hook` mode answers a Claude Code PreToolUse or Stop payload with a permission decision (opt-in, wiring in the skill)
 
 **Limit:** regular expressions cannot see structural slop (invented frameworks, uniform rhythm, restatement). Pair with `/no-ai-slop` detect mode and a reviewer from a different model family than the author.
+
+---
+
+### /release-video
+
+**Description:** Turn a product release into a motion recap video and one explained demo per shipped feature.
+
+**Triggers:**
+- "make a video for this release"
+- Release notes or docs that need demo clips
+- A changelog that should go out as a short reel
+
+**Purpose:** Release videos made by hand take a day and drift from what shipped. This pipeline renders scenes deterministically from HTML, so a fix to one scene is a re-render, and it carries the rules a real review produced: sound tied to motion, music composed to the timeline, every illustration showing its feature, pacing slow enough to read.
+
+**What it does:**
+1. Inventories the shipped items and records each one in the real product
+2. Builds one HTML scene per feature on a time-driven engine, reviewed as stills before any full render
+3. Generates sound effects per animated element and a sectioned music bed with ElevenLabs, and checks candidates for repetition
+4. Renders frames in parallel, mixes with music ducked under every effect at about -18 LUFS
+5. Composes each recording into an explained demo: step captions, labeled speed-ups, zoom and highlight ring on the payoff
+
+**Pairs with:** [video-use](https://github.com/browser-use/video-use) for cutting narrated footage; this skill's clips go in its folder as B-roll.
 
 ---
 
